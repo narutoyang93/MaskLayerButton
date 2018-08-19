@@ -24,7 +24,7 @@ import android.view.MotionEvent;
  */
 public class MaskLayerButton extends AppCompatButton {
     private Context context;
-    private final int DEFAULT_MASK_LAYER_COLOR=0x21000000;
+    private final int DEFAULT_MASK_LAYER_COLOR = 0x21000000;
     private boolean isOnPress = false;//是否处于按下状态
     private boolean isNeedMaskLayer;//是否需要遮罩层
     private int maskLayerColor;//遮罩层颜色
@@ -58,7 +58,7 @@ public class MaskLayerButton extends AppCompatButton {
 
     public void init(AttributeSet attrs) {
         /**
-         * 通过这个方法，将atts.xml中定义的declare-styleable的所有属性的值存储到TypedArray中
+         * 通过这个方法，将attrs.xml中定义的declare-styleable的所有属性的值存储到TypedArray中
          */
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.MaskLayerButton);
         //从TypedArray中取出对应的值来为要设置的属性赋值
