@@ -17,17 +17,20 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 /**
- * @Purpose 具有遮罩层的按钮，按下后可以在文本上方显示遮罩层，无需selector,支持圆角，无需自定义shape
+ * @Purpose 具有遮罩层的按钮，按下后可以在文本上方显示遮罩层，无需selector,支持圆角和描边，无需自定义shape
  * @Author Naruto Yang
  * @CreateDate ${2018-06-07}
  * @Note
  */
 public class MaskLayerButton extends AppCompatButton {
     private Context context;
-    private final int DEFAULT_MASK_LAYER_COLOR = 0x21000000;
+    private final static int DEFAULT_MASK_LAYER_COLOR = 0x21000000;
+    private final static int DEFAULT_STROKE_WIDTH = 1;//单位：dp
     private boolean isOnPress = false;//是否处于按下状态
     private boolean isNeedMaskLayer;//是否需要遮罩层
     private int maskLayerColor;//遮罩层颜色
+    private float strokeWidth;//描边画笔宽度//单位：px
+    private int strokeColor;//描边颜色
     private int radius;//圆角半径
 
 
@@ -65,7 +68,15 @@ public class MaskLayerButton extends AppCompatButton {
         radius = ta.getDimensionPixelSize(R.styleable.MaskLayerButton_radius, 0);
         isNeedMaskLayer = ta.getBoolean(R.styleable.MaskLayerButton_needMaskLayer, true);
         maskLayerColor = ta.getColor(R.styleable.MaskLayerButton_maskLayerColor, DEFAULT_MASK_LAYER_COLOR);
+        strokeWidth = ta.getDimensionPixelSize(R.styleable.MaskLayerButton_strokeWidth, dip2px(DEFAULT_STROKE_WIDTH));
+        strokeColor = ta.getColor(R.styleable.MaskLayerButton_strokeColor, -1);
     }
+
+    @Override
+    public void onDrawForeground(Canvas canvas) {
+        super.onDrawForeground(canvas);
+    }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -88,19 +99,48 @@ public class MaskLayerButton extends AppCompatButton {
             Bitmap roundBitmap = getRoundBitmap(bitmap);
             setBackgroundDrawable(new BitmapDrawable(roundBitmap));//用圆角化后的背景替换原有背景
         }
-
         super.onDraw(canvas);
+        if (strokeColor != -1) {//描边
+            drawMaskLayerOrContour(paint, canvas, false);
+        }
         if (isNeedMaskLayer) {
             if (isOnPress) {
-                paint.reset();
-                paint.setColor(maskLayerColor);
-                paint.setStyle(Paint.Style.FILL);
-                if (radius > 0) {//圆角矩形遮罩层
-                    canvas.drawRoundRect(new RectF(canvas.getClipBounds()), radius, radius, paint);
-                } else {//矩形遮罩层
-                    canvas.drawRect(canvas.getClipBounds(), paint);
-                }
+                drawMaskLayerOrContour(paint, canvas, true);
             }
+        }
+    }
+
+    /**
+     * 绘制遮罩层或描边
+     *
+     * @param paint
+     * @param canvas
+     * @param isMaskLayer
+     */
+    private void drawMaskLayerOrContour(Paint paint, Canvas canvas, boolean isMaskLayer) {
+        paint.reset();
+        if (isMaskLayer) {//遮罩层
+            paint.setColor(maskLayerColor);
+            paint.setStyle(Paint.Style.FILL);
+        } else {//描边
+            paint.setColor(strokeColor);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeWidth(strokeWidth);
+            paint.setStrokeJoin(Paint.Join.ROUND);
+        }
+        if (radius > 0) {//圆角矩形
+            paint.setAntiAlias(true);
+            RectF rf = new RectF(canvas.getClipBounds());
+            if (!isMaskLayer) {
+                float padding = strokeWidth / 2;
+                rf.bottom -= padding;
+                rf.right -= padding;
+                rf.top += padding;
+                rf.left += padding;
+            }
+            canvas.drawRoundRect(rf, radius, radius, paint);
+        } else {//矩形
+            canvas.drawRect(canvas.getClipBounds(), paint);
         }
     }
 

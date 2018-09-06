@@ -65,17 +65,18 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/button_send_pressed"
+        android:background="@null"
         android:padding="10dp"
         android:text="Button"
-        android:textColor="@android:color/white"
+        app:strokeColor="@android:color/holo_blue_light"
+        android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:needMaskLayer="true"
-        app:radius="5dp" />
+        app:radius="30dp" />
 
 
 </android.support.constraint.ConstraintLayout>

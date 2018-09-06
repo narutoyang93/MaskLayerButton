@@ -4,5 +4,7 @@
         <attr name="radius" format="dimension"></attr>
         <attr name="needMaskLayer" format="boolean"></attr>
         <attr name="maskLayerColor" format="color"></attr>
+        <attr name="strokeWidth" format="dimension"></attr>
+        <attr name="strokeColor" format="color"></attr>
     </declare-styleable>
 </resources>
