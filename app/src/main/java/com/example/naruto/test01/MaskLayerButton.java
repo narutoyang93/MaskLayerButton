@@ -42,6 +42,30 @@ public class MaskLayerButton extends AppCompatButton {
         this.radius = radius;
     }
 
+    public int getMaskLayerColor() {
+        return maskLayerColor;
+    }
+
+    public void setMaskLayerColor(int maskLayerColor) {
+        this.maskLayerColor = maskLayerColor;
+    }
+
+    public float getStrokeWidth() {
+        return strokeWidth;
+    }
+
+    public void setStrokeWidth(float strokeWidth) {
+        this.strokeWidth = strokeWidth;
+    }
+
+    public int getStrokeColor() {
+        return strokeColor;
+    }
+
+    public void setStrokeColor(int strokeColor) {
+        this.strokeColor = strokeColor;
+    }
+
     public MaskLayerButton(Context context) {
         super(context);
         this.context = context;
