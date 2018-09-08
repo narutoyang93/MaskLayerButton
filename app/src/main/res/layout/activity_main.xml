@@ -68,7 +68,6 @@
         android:background="@null"
         android:padding="10dp"
         android:text="Button"
-        app:strokeColor="@android:color/holo_blue_light"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
@@ -76,7 +75,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:needMaskLayer="true"
-        app:radius="30dp" />
+        app:radius="30dp"
+        app:strokeColor="@android:color/holo_blue_light"
+        app:strokeDashSize="5dp"
+        app:strokeType="dash" />
 
 
 </android.support.constraint.ConstraintLayout>

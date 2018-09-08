@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -23,15 +24,20 @@ import android.view.MotionEvent;
  * @Note
  */
 public class MaskLayerButton extends AppCompatButton {
-    private Context context;
     private final static int DEFAULT_MASK_LAYER_COLOR = 0x21000000;
     private final static int DEFAULT_STROKE_WIDTH = 1;//单位：dp
+    private final static int DEFAULT_STROKE_DASH_SIZE = 3;//默认虚线间隔，单位：dp
+    private final static int STROKE_TYPE_SOLID = 0;//实线
+    private final static int STROKE_TYPE_DASH = 1;//虚线
+    private Context context;
     private boolean isOnPress = false;//是否处于按下状态
     private boolean isNeedMaskLayer;//是否需要遮罩层
     private int maskLayerColor;//遮罩层颜色
     private float strokeWidth;//描边画笔宽度//单位：px
     private int strokeColor;//描边颜色
     private int radius;//圆角半径
+    private int strokeType;//描边类型
+    private int strokeDashSize;//虚线间隔
 
 
     public int getRadius() {
@@ -94,6 +100,9 @@ public class MaskLayerButton extends AppCompatButton {
         maskLayerColor = ta.getColor(R.styleable.MaskLayerButton_maskLayerColor, DEFAULT_MASK_LAYER_COLOR);
         strokeWidth = ta.getDimensionPixelSize(R.styleable.MaskLayerButton_strokeWidth, dip2px(DEFAULT_STROKE_WIDTH));
         strokeColor = ta.getColor(R.styleable.MaskLayerButton_strokeColor, -1);
+        strokeType = ta.getInt(R.styleable.MaskLayerButton_strokeType, STROKE_TYPE_SOLID);
+        strokeDashSize = ta.getDimensionPixelSize(R.styleable.MaskLayerButton_strokeDashSize, dip2px(DEFAULT_STROKE_DASH_SIZE));
+        ta.recycle();
     }
 
     @Override
@@ -151,6 +160,9 @@ public class MaskLayerButton extends AppCompatButton {
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(strokeWidth);
             paint.setStrokeJoin(Paint.Join.ROUND);
+            if (strokeType == STROKE_TYPE_DASH) {
+                paint.setPathEffect(new DashPathEffect(new float[]{strokeDashSize, strokeDashSize}, 0));
+            }
         }
         if (radius > 0) {//圆角矩形
             paint.setAntiAlias(true);

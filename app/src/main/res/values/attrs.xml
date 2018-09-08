@@ -6,5 +6,10 @@
         <attr name="maskLayerColor" format="color"></attr>
         <attr name="strokeWidth" format="dimension"></attr>
         <attr name="strokeColor" format="color"></attr>
+        <attr name="strokeType" format="enum">
+            <enum name="solid" value="0"></enum>
+            <enum name="dash" value="1"></enum>
+        </attr>
+        <attr name="strokeDashSize" format="dimension"></attr>
     </declare-styleable>
 </resources>
