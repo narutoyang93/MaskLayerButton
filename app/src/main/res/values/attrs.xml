@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="MaskLayerButton">
         <attr name="radius" format="dimension"></attr>
+        <attr name="constraintRadiusWithWidth_percent" format="fraction"></attr>
         <attr name="needMaskLayer" format="boolean"></attr>
         <attr name="maskLayerColor" format="color"></attr>
         <attr name="strokeWidth" format="dimension"></attr>
