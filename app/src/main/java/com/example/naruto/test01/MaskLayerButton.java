@@ -39,39 +39,6 @@ public class MaskLayerButton extends AppCompatButton {
     private int strokeType;//描边类型
     private int strokeDashSize;//虚线间隔
 
-
-    public int getRadius() {
-        return radius;
-    }
-
-    public void setRadius(int radius) {
-        this.radius = radius;
-    }
-
-    public int getMaskLayerColor() {
-        return maskLayerColor;
-    }
-
-    public void setMaskLayerColor(int maskLayerColor) {
-        this.maskLayerColor = maskLayerColor;
-    }
-
-    public float getStrokeWidth() {
-        return strokeWidth;
-    }
-
-    public void setStrokeWidth(float strokeWidth) {
-        this.strokeWidth = strokeWidth;
-    }
-
-    public int getStrokeColor() {
-        return strokeColor;
-    }
-
-    public void setStrokeColor(int strokeColor) {
-        this.strokeColor = strokeColor;
-    }
-
     public MaskLayerButton(Context context) {
         super(context);
         this.context = context;
@@ -275,4 +242,59 @@ public class MaskLayerButton extends AppCompatButton {
     }
 
 
+    public int getRadius() {
+        return radius;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
+    }
+
+    public int getMaskLayerColor() {
+        return maskLayerColor;
+    }
+
+    public void setMaskLayerColor(int maskLayerColor) {
+        this.maskLayerColor = maskLayerColor;
+    }
+
+    public float getStrokeWidth() {
+        return strokeWidth;
+    }
+
+    public void setStrokeWidth(float strokeWidth) {
+        this.strokeWidth = strokeWidth;
+    }
+
+    public int getStrokeColor() {
+        return strokeColor;
+    }
+
+    public void setStrokeColor(int strokeColor) {
+        this.strokeColor = strokeColor;
+    }
+
+    public boolean isNeedMaskLayer() {
+        return isNeedMaskLayer;
+    }
+
+    public void setNeedMaskLayer(boolean needMaskLayer) {
+        isNeedMaskLayer = needMaskLayer;
+    }
+
+    public int getStrokeType() {
+        return strokeType;
+    }
+
+    public void setStrokeType(int strokeType) {
+        this.strokeType = strokeType;
+    }
+
+    public int getStrokeDashSize() {
+        return strokeDashSize;
+    }
+
+    public void setStrokeDashSize(int strokeDashSize) {
+        this.strokeDashSize = strokeDashSize;
+    }
 }
