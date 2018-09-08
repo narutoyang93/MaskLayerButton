@@ -131,17 +131,17 @@ public class MaskLayerButton extends AppCompatButton {
                 paint.setPathEffect(new DashPathEffect(new float[]{strokeDashSize, strokeDashSize}, 0));
             }
         }
+        RectF rf = new RectF(canvas.getClipBounds());
+        if (!isMaskLayer) {
+            float padding = strokeWidth / 2;
+            rf.bottom -= padding;
+            rf.right -= padding;
+            rf.top += padding;
+            rf.left += padding;
+        }
+        canvas.drawRoundRect(rf, radius, radius, paint);
         if (radius > 0) {//圆角矩形
             paint.setAntiAlias(true);
-            RectF rf = new RectF(canvas.getClipBounds());
-            if (!isMaskLayer) {
-                float padding = strokeWidth / 2;
-                rf.bottom -= padding;
-                rf.right -= padding;
-                rf.top += padding;
-                rf.left += padding;
-            }
-            canvas.drawRoundRect(rf, radius, radius, paint);
         } else {//矩形
             canvas.drawRect(canvas.getClipBounds(), paint);
         }

@@ -77,7 +77,7 @@
         app:needMaskLayer="true"
         app:radius="30dp"
         app:strokeColor="@android:color/holo_blue_light"
-        app:strokeDashSize="5dp"
+        app:strokeDashSize="3dp"
         app:strokeType="dash" />
 
 
