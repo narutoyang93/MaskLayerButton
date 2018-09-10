@@ -176,9 +176,9 @@ public class MaskLayerButton extends AppCompatButton {
             rf.top += padding;
             rf.left += padding;
         }
-        canvas.drawRoundRect(rf, radius, radius, paint);
         if (radius > 0) {//圆角矩形
             paint.setAntiAlias(true);
+            canvas.drawRoundRect(rf, radius, radius, paint);
         } else {//矩形
             canvas.drawRect(canvas.getClipBounds(), paint);
         }
@@ -211,8 +211,7 @@ public class MaskLayerButton extends AppCompatButton {
     }
 
     private Bitmap drawableToBitmap(Drawable drawable) {
-        if (drawable instanceof BitmapDrawable)
-        {
+        if (drawable instanceof BitmapDrawable) {
             BitmapDrawable bd = (BitmapDrawable) drawable;
             return bd.getBitmap();
         }

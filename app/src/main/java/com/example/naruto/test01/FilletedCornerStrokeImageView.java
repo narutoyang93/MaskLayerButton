@@ -19,7 +19,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * @Purpose
+ * @Purpose 支持圆角和描边，无需自定义shape
  * @Author Naruto Yang
  * @CreateDate 2018/9/8 0008
  * @Note
@@ -90,43 +90,26 @@ public class FilletedCornerStrokeImageView extends android.support.v7.widget.App
             }
         }
 
-        if (width > radius && height > radius) {
-            Path path = new Path();
-            path.moveTo(radius, 0);
-            path.lineTo(width - radius, 0);
-            path.quadTo(width, 0, width, radius);
-            path.lineTo(width, height - radius);
-            path.quadTo(width, height, width - radius, height);
-            path.lineTo(radius, height);
-            path.quadTo(0, height, 0, height - radius);
-            path.lineTo(0, radius);
-            path.quadTo(0, 0, radius, 0);
-            canvas.clipPath(path);
-        }
-        super.onDraw(canvas);
-
-/*        Drawable background = getBackground();
-        if (radius > 0 && background != null) {//如果圆角半径>0且背景不为空，需要绘制圆角背景
-            paint.reset();
-            Rect rect = canvas.getClipBounds();
-            Bitmap bitmap;
-            if (background instanceof ColorDrawable) {
-                ColorDrawable colordDrawable = (ColorDrawable) background;
-                int color = colordDrawable.getColor();
-
-                //生成纯色bitmap
-                bitmap = Bitmap.createBitmap(rect.width(), rect.height(), Bitmap.Config.ARGB_8888);
-                bitmap.eraseColor(color);//填充颜色
-            } else {
-                bitmap = ((BitmapDrawable) background).getBitmap();
-            }
-            Bitmap roundBitmap = getRoundBitmap(bitmap);
-            setBackgroundDrawable(new BitmapDrawable(roundBitmap));//用圆角化后的背景替换原有背景
-        }*/
-
         if (strokeColor != -1) {//描边
             drawStroke(paint, canvas);
         }
+
+        int paddingTop = getPaddingTop();
+        int paddingBottom = getPaddingBottom();
+        int paddingLeft = getPaddingLeft();
+        int paddingRight = getPaddingRight();
+        if (radius > 0 && width - paddingLeft - paddingRight >= 2 * radius && height - paddingTop - paddingBottom >= 2 * radius) {
+            Path path = new Path();
+            RectF rf0 = new RectF(canvas.getClipBounds());
+            RectF rf = new RectF(canvas.getClipBounds());
+            rf.left += paddingLeft;
+            rf.top += paddingTop;
+            rf.right -= paddingRight;
+            rf.bottom -= paddingBottom;
+            path.addRoundRect(rf, radius - paddingLeft, radius - paddingBottom, Path.Direction.CW);
+            canvas.clipPath(path);
+        }
+        super.onDraw(canvas);
     }
 
     /**
@@ -164,33 +147,6 @@ public class FilletedCornerStrokeImageView extends android.support.v7.widget.App
     }
 
     /**
-     * 获取圆角矩形图片方法
-     *
-     * @param bitmap
-     * @return Bitmap
-     * @author caizhiming
-     */
-    private Bitmap getRoundBitmap(Bitmap bitmap) {
-        Bitmap outputBitmap = Bitmap.createBitmap(bitmap.getWidth(),
-                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(outputBitmap);
-        Paint paint = new Paint();
-        final int color = 0xff424242;
-
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        final RectF rectF = new RectF(rect);
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        int x = bitmap.getWidth();
-
-        canvas.drawRoundRect(rectF, radius, radius, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-        return outputBitmap;
-    }
-
-    /**
      * 绘制遮罩层或描边
      *
      * @param paint
@@ -205,16 +161,17 @@ public class FilletedCornerStrokeImageView extends android.support.v7.widget.App
 
         RectF rf = new RectF(canvas.getClipBounds());
         float padding = strokeWidth / 2;
-        rf.bottom -= padding;
-        rf.right -= padding;
-        rf.top += padding;
         rf.left += padding;
-        canvas.drawRoundRect(rf, radius, radius, paint);
+        rf.top += padding;
+        rf.right -= padding;
+        rf.bottom -= padding;
+
         if (strokeType == STROKE_TYPE_DASH) {
             paint.setPathEffect(new DashPathEffect(new float[]{strokeDashSize, strokeDashSize}, 0));
         }
         if (radius > 0) {//圆角矩形
             paint.setAntiAlias(true);
+            canvas.drawRoundRect(rf, radius, radius, paint);
         } else {//矩形
             canvas.drawRect(canvas.getClipBounds(), paint);
         }

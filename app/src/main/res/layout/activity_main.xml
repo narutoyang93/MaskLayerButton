@@ -85,12 +85,14 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:adjustViewBounds="true"
+        android:padding="5dp"
+        app:strokeColor="@android:color/holo_orange_light"
         android:src="@drawable/bibobobibobi"
-        app:strokeType="dash"
+        app:constraintRadiusWithHeight_percent="0.2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3"
-        app:constraintRadiusWithHeight_percent="0.2"/>
+        app:strokeType="dash"/>
 
 
 </android.support.constraint.ConstraintLayout>
