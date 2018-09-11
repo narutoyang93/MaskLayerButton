@@ -98,9 +98,8 @@ public class FilletedCornerStrokeImageView extends android.support.v7.widget.App
         int paddingBottom = getPaddingBottom();
         int paddingLeft = getPaddingLeft();
         int paddingRight = getPaddingRight();
-        if (radius > 0 && width - paddingLeft - paddingRight >= 2 * radius && height - paddingTop - paddingBottom >= 2 * radius) {
+        if (radius > 0 && width >= 2 * radius && height >= 2 * radius) {
             Path path = new Path();
-            RectF rf0 = new RectF(canvas.getClipBounds());
             RectF rf = new RectF(canvas.getClipBounds());
             rf.left += paddingLeft;
             rf.top += paddingTop;

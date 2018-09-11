@@ -3,6 +3,7 @@
     <!--通用属性-->
     <!--圆角半径-->
     <attr name="radius" format="dimension"></attr>
+    <!--根据比例设置圆角半径-->
     <attr name="constraintRadiusWithWidth_percent" format="float"></attr>
     <attr name="constraintRadiusWithHeight_percent" format="float"></attr>
     <!--描边画笔宽度-->
@@ -14,7 +15,7 @@
         <enum name="solid" value="0"></enum>
         <enum name="dash" value="1"></enum>
     </attr>
-    <!--虚线间隔-->
+    <!--虚线点与点间隔-->
     <attr name="strokeDashSize" format="dimension"></attr>
 
 
