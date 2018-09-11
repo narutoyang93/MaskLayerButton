@@ -25,6 +25,7 @@ import android.view.View;
  * @Note
  */
 public class FilletedCornerStrokeImageView extends android.support.v7.widget.AppCompatImageView {
+    private final static int DEFAULT_STROKE_COLOR = 0x00000000;
     private final static int DEFAULT_STROKE_WIDTH = 1;//单位：dp
     private final static int DEFAULT_STROKE_DASH_SIZE = 3;//默认虚线间隔，单位：dp
     private final static int STROKE_TYPE_SOLID = 0;//实线
@@ -64,7 +65,7 @@ public class FilletedCornerStrokeImageView extends android.support.v7.widget.App
         //从TypedArray中取出对应的值来为要设置的属性赋值
         radius = ta.getDimensionPixelSize(R.styleable.FilletedCornerStrokeImageView_radius, 0);
         strokeWidth = ta.getDimensionPixelSize(R.styleable.FilletedCornerStrokeImageView_strokeWidth, dip2px(DEFAULT_STROKE_WIDTH));
-        strokeColor = ta.getColor(R.styleable.FilletedCornerStrokeImageView_strokeColor, -1);
+        strokeColor = ta.getColor(R.styleable.FilletedCornerStrokeImageView_strokeColor, DEFAULT_STROKE_COLOR);
         strokeType = ta.getInt(R.styleable.FilletedCornerStrokeImageView_strokeType, STROKE_TYPE_SOLID);
         strokeDashSize = ta.getDimensionPixelSize(R.styleable.FilletedCornerStrokeImageView_strokeDashSize, dip2px(DEFAULT_STROKE_DASH_SIZE));
         constraintRadiusWithWidth_percent = ta.getFloat(R.styleable.MaskLayerButton_constraintRadiusWithWidth_percent, 0);
@@ -90,7 +91,7 @@ public class FilletedCornerStrokeImageView extends android.support.v7.widget.App
             }
         }
 
-        if (strokeColor != -1) {//描边
+        if (strokeColor != DEFAULT_STROKE_COLOR) {//描边
             drawStroke(paint, canvas);
         }
 
