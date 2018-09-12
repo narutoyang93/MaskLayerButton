@@ -38,7 +38,8 @@ public class MaskLayerButton extends AppCompatButton {
     private int strokeColor;//描边颜色
     private int radius;//圆角半径
     private int strokeType;//描边类型
-    private int strokeDashSize;//虚线间隔
+    private int strokeDashLength;//虚线线段长度
+    private int strokeDashInterval;//虚线线段间隔
     private float constraintRadiusWithWidth_percent;//圆角半径相对于控件宽度的比例
     private float constraintRadiusWithHeight_percent;//圆角半径相对于控件高度的比例
 
@@ -71,7 +72,8 @@ public class MaskLayerButton extends AppCompatButton {
         strokeWidth = ta.getDimensionPixelSize(R.styleable.MaskLayerButton_strokeWidth, dip2px(DEFAULT_STROKE_WIDTH));
         strokeColor = ta.getColor(R.styleable.MaskLayerButton_strokeColor, -1);
         strokeType = ta.getInt(R.styleable.MaskLayerButton_strokeType, STROKE_TYPE_SOLID);
-        strokeDashSize = ta.getDimensionPixelSize(R.styleable.MaskLayerButton_strokeDashSize, dip2px(DEFAULT_STROKE_DASH_SIZE));
+        strokeDashLength = ta.getDimensionPixelSize(R.styleable.MaskLayerButton_strokeDashLength, dip2px(DEFAULT_STROKE_DASH_SIZE));
+        strokeDashInterval = ta.getDimensionPixelSize(R.styleable.MaskLayerButton_strokeDashInterval, dip2px(DEFAULT_STROKE_DASH_SIZE));
         constraintRadiusWithWidth_percent = ta.getFloat(R.styleable.MaskLayerButton_constraintRadiusWithWidth_percent, 0);
         constraintRadiusWithHeight_percent = ta.getFloat(R.styleable.MaskLayerButton_constraintRadiusWithHeight_percent, 0);
         ta.recycle();
@@ -165,7 +167,7 @@ public class MaskLayerButton extends AppCompatButton {
             paint.setStrokeWidth(strokeWidth);
             paint.setStrokeJoin(Paint.Join.ROUND);
             if (strokeType == STROKE_TYPE_DASH) {
-                paint.setPathEffect(new DashPathEffect(new float[]{strokeDashSize, strokeDashSize}, 0));
+                paint.setPathEffect(new DashPathEffect(new float[]{strokeDashLength, strokeDashInterval}, 0));
             }
         }
         RectF rf = new RectF(canvas.getClipBounds());
@@ -341,11 +343,35 @@ public class MaskLayerButton extends AppCompatButton {
         this.strokeType = strokeType;
     }
 
-    public int getStrokeDashSize() {
-        return strokeDashSize;
+    public int getStrokeDashLength() {
+        return strokeDashLength;
     }
 
-    public void setStrokeDashSize(int strokeDashSize) {
-        this.strokeDashSize = strokeDashSize;
+    public void setStrokeDashLength(int strokeDashLength) {
+        this.strokeDashLength = strokeDashLength;
+    }
+
+    public int getStrokeDashInterval() {
+        return strokeDashInterval;
+    }
+
+    public void setStrokeDashInterval(int strokeDashInterval) {
+        this.strokeDashInterval = strokeDashInterval;
+    }
+
+    public float getConstraintRadiusWithWidth_percent() {
+        return constraintRadiusWithWidth_percent;
+    }
+
+    public void setConstraintRadiusWithWidth_percent(float constraintRadiusWithWidth_percent) {
+        this.constraintRadiusWithWidth_percent = constraintRadiusWithWidth_percent;
+    }
+
+    public float getConstraintRadiusWithHeight_percent() {
+        return constraintRadiusWithHeight_percent;
+    }
+
+    public void setConstraintRadiusWithHeight_percent(float constraintRadiusWithHeight_percent) {
+        this.constraintRadiusWithHeight_percent = constraintRadiusWithHeight_percent;
     }
 }

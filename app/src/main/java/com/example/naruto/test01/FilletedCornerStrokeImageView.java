@@ -34,7 +34,8 @@ public class FilletedCornerStrokeImageView extends android.support.v7.widget.App
     private int strokeColor;//描边颜色
     private int radius;//圆角半径
     private int strokeType;//描边类型
-    private int strokeDashSize;//虚线间隔
+    private int strokeDashLength;//虚线线段长度
+    private int strokeDashInterval;//虚线线段间隔
     private float constraintRadiusWithWidth_percent;//圆角半径相对于控件宽度的比例
     private float constraintRadiusWithHeight_percent;//圆角半径相对于控件高度的比例
     private Context context;
@@ -67,7 +68,8 @@ public class FilletedCornerStrokeImageView extends android.support.v7.widget.App
         strokeWidth = ta.getDimensionPixelSize(R.styleable.FilletedCornerStrokeImageView_strokeWidth, dip2px(DEFAULT_STROKE_WIDTH));
         strokeColor = ta.getColor(R.styleable.FilletedCornerStrokeImageView_strokeColor, DEFAULT_STROKE_COLOR);
         strokeType = ta.getInt(R.styleable.FilletedCornerStrokeImageView_strokeType, STROKE_TYPE_SOLID);
-        strokeDashSize = ta.getDimensionPixelSize(R.styleable.FilletedCornerStrokeImageView_strokeDashSize, dip2px(DEFAULT_STROKE_DASH_SIZE));
+        strokeDashLength = ta.getDimensionPixelSize(R.styleable.FilletedCornerStrokeImageView_strokeDashLength, dip2px(DEFAULT_STROKE_DASH_SIZE));
+        strokeDashInterval = ta.getDimensionPixelSize(R.styleable.FilletedCornerStrokeImageView_strokeDashInterval, dip2px(DEFAULT_STROKE_DASH_SIZE));
         constraintRadiusWithWidth_percent = ta.getFloat(R.styleable.MaskLayerButton_constraintRadiusWithWidth_percent, 0);
         constraintRadiusWithHeight_percent = ta.getFloat(R.styleable.MaskLayerButton_constraintRadiusWithHeight_percent, 0);
         ta.recycle();
@@ -147,7 +149,7 @@ public class FilletedCornerStrokeImageView extends android.support.v7.widget.App
     }
 
     /**
-     * 绘制遮罩层或描边
+     * 绘制描边
      *
      * @param paint
      * @param canvas
@@ -167,7 +169,7 @@ public class FilletedCornerStrokeImageView extends android.support.v7.widget.App
         rf.bottom -= padding;
 
         if (strokeType == STROKE_TYPE_DASH) {
-            paint.setPathEffect(new DashPathEffect(new float[]{strokeDashSize, strokeDashSize}, 0));
+            paint.setPathEffect(new DashPathEffect(new float[]{strokeDashLength, strokeDashInterval}, 0));
         }
         if (radius > 0) {//圆角矩形
             paint.setAntiAlias(true);

@@ -76,7 +76,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:needMaskLayer="true"
         app:strokeColor="@android:color/holo_blue_light"
-        app:strokeDashSize="3dp"
         app:strokeType="dash" />
 
     <com.example.naruto.test01.FilletedCornerStrokeImageView
@@ -92,6 +91,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3"
         app:strokeColor="#ffffff"
+        app:strokeDashInterval="5dp"
+        app:strokeDashLength="10dp"
         app:strokeType="dash"
         app:strokeWidth="2dp" />
 
